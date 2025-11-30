@@ -9,73 +9,120 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 
     <style>
-        /* CSS لنموذج الدخول وتجاوب الجوال */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    /* CSS لنموذج الدخول وتجاوب الجوال */
+    body {
+        font-family: 'Arial', 'Tahoma', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        direction: rtl; /* التأكد من اتجاه النص للعربية */
+    }
+    #login-screen {
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        width: 350px; /* زيادة بسيطة لشاشة الدخول */
+        text-align: center;
+    }
+    #login-screen input[type="email"], 
+    #login-screen input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    #login-screen button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+    #login-screen button:hover {
+        background-color: #0056b3;
+    }
+    
+    /* تنسيق المحتوى الرئيسي */
+    #main-content {
+        display: none; 
+        max-width: 900px; /* عرض أقصى مناسب للكمبيوتر */
+        margin: 20px auto;
+        padding: 40px;
+        text-align: right;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        line-height: 1.6;
+    }
+    .error-message {
+        color: #dc3545;
+        margin-bottom: 15px;
+        min-height: 20px;
+    }
+    
+    /* تنسيق الأقسام الداخلية للمحتوى */
+    #main-content h1 {
+        font-size: 2.5em;
+        color: #1e8449; /* لون أخضر مناسب للشجرة */
+    }
+    #main-content h2 {
+        font-size: 1.6em;
+        border-right: 4px solid #3498db; 
+        padding-right: 10px;
+        margin-top: 30px;
+        color: #2980b9;
+    }
+    #main-content li {
+        margin-bottom: 12px;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 📱 التنسيق المتجاوب (Media Query) للهواتف الجوالة */
+    /* ---------------------------------------------------- */
+    @media (max-width: 600px) {
+        
+        /* 1. ضبط شاشة الدخول */
         #login-screen {
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            width: 300px;
-            text-align: center;
+            width: 90%; 
+            padding: 20px;
         }
-        #login-screen input[type="email"], 
-        #login-screen input[type="password"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        #login-screen button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        #login-screen button:hover {
-            background-color: #0056b3;
-        }
+
+        /* 2. ضبط المحتوى الرئيسي */
         #main-content {
-            display: none; 
-            max-width: 90%; /* تجاوب الجوال */
-            margin: 20px auto;
-            padding: 30px;
-            text-align: right;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-        .error-message {
-            color: #dc3545;
-            margin-bottom: 15px;
-            min-height: 20px;
+            width: 95%; 
+            max-width: none; /* إزالة العرض الأقصى لملء الشاشة */
+            padding: 15px;
+            margin: 10px auto;
         }
         
-        /* التنسيق المتجاوب (لشاشات الجوال) */
-        @media (max-width: 600px) {
-            #login-screen {
-                width: 90%;
-            }
-            #main-content {
-                padding: 15px;
-            }
+        /* 3. تصغير حجم الخطوط */
+        #main-content h1 {
+            font-size: 1.8em; /* تقليل حجم العنوان الرئيسي */
         }
-    </style>
+        #main-content h2 {
+            font-size: 1.3em; /* تقليل حجم العناوين الفرعية */
+        }
+        #main-content p, #main-content li {
+            font-size: 0.9em; /* تقليل حجم نص الفقرات والقوائم */
+        }
+        
+        /* 4. تصغير زر الخريطة */
+        #main-content a {
+            padding: 8px 15px !important;
+            font-size: 0.9em !important;
+        }
+    }
+</style>
 </head>
 <body>
 
